@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://src/Scenes/Backgrounds/Planet.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/Scenes/Backgrounds/Planet.gd" type="Script" id=2]
+
+[node name="PlanetHolder" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="EarthPlanet" parent="." instance=ExtResource( 1 )]
+position = Vector2( 960, 98 )
+
+[node name="Sprite" parent="EarthPlanet" index="0"]
+modulate = Color( 1, 1, 1, 1 )
+
+[node name="IcePlanet" parent="." instance=ExtResource( 1 )]
+position = Vector2( 1806.56, 237.693 )
+
+[node name="Sprite" parent="IcePlanet" index="0"]
+modulate = Color( 1, 1, 1, 1 )
+region_rect = Rect2( 64, 32, 32, 32 )
+
+[editable path="EarthPlanet"]
+[editable path="IcePlanet"]

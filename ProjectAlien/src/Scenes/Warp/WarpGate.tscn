@@ -1,0 +1,84 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://Art/Alien Project Sprite Sheet.png" type="Texture" id=1]
+[ext_resource path="res://src/Scenes/Warp/WarpGate.gd" type="Script" id=2]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 19.779
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 24.8719
+
+[sub_resource type="CanvasItemMaterial" id=3]
+particles_animation = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Curve" id=4]
+min_value = -500.0
+max_value = 500.0
+_data = [ Vector2( 0, -500 ), 0.0, 0.0, 0, 0, Vector2( 1, -500 ), 0.0, 342.195, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=5]
+width = 4096
+curve = SubResource( 4 )
+
+[sub_resource type="Curve" id=6]
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=7]
+width = 32
+curve = SubResource( 6 )
+
+[sub_resource type="Curve" id=8]
+_data = [ Vector2( 0, 1 ), 0.0, -11.3215, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=9]
+curve = SubResource( 8 )
+
+[sub_resource type="ParticlesMaterial" id=10]
+trail_size_modifier = SubResource( 9 )
+emission_shape = 1
+emission_sphere_radius = 30.76
+flag_disable_z = true
+gravity = Vector3( 0, 98, 0 )
+angular_velocity = 720.0
+angular_velocity_random = 1.0
+orbit_velocity = 20.0
+orbit_velocity_random = 1.0
+orbit_velocity_curve = SubResource( 5 )
+scale_random = 1.0
+scale_curve = SubResource( 7 )
+color = Color( 0.501961, 0.870588, 1, 1 )
+
+[node name="WarpGate" type="KinematicBody2D"]
+scale = Vector2( 1.5, 1.5 )
+script = ExtResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="."]
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 64, 0, 32, 32 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+disabled = true
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource( 2 )
+
+[node name="Tween" type="Tween" parent="."]
+repeat = true
+playback/repeat = true
+
+[node name="Swirls" type="Particles2D" parent="."]
+material = SubResource( 3 )
+amount = 1000
+local_coords = false
+process_material = SubResource( 10 )
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]

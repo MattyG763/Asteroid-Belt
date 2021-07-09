@@ -1,0 +1,101 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://src/Scenes/InfoScreens/StoryScrollRight.tres" type="Animation" id=1]
+[ext_resource path="res://Fonts/ButtonStyleNormal.tres" type="StyleBox" id=2]
+[ext_resource path="res://Fonts/ButtonStylePressed.tres" type="StyleBox" id=3]
+[ext_resource path="res://Fonts/Symtext.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://src/Scenes/InfoScreens/StoryScene.gd" type="Script" id=5]
+
+[sub_resource type="Animation" id=2]
+resource_name = "StoryScrollLeft"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 540, 0 ) ]
+}
+
+[sub_resource type="DynamicFont" id=1]
+font_data = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=3]
+font_data = ExtResource( 4 )
+
+[node name="StoryScene" type="Node2D"]
+position = Vector2( 540, 0 )
+script = ExtResource( 5 )
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_right = 540.0
+margin_bottom = 360.0
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/StoryScrollLeft = SubResource( 2 )
+anims/StoryScrollRight = ExtResource( 1 )
+
+[node name="Button" type="Button" parent="."]
+margin_right = 186.0
+margin_bottom = 20.0
+custom_styles/hover = ExtResource( 3 )
+custom_styles/pressed = ExtResource( 3 )
+custom_styles/normal = ExtResource( 2 )
+custom_fonts/font = SubResource( 1 )
+text = "Back to menu"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+margin_left = 21.0
+margin_top = 42.0
+margin_right = 516.0
+margin_bottom = 337.0
+custom_fonts/normal_font = SubResource( 3 )
+bbcode_text = "You are Captain girk.
+
+You have been separated from your fleet while on a defense mission to glargnak-6.
+
+you find yourself trapped inside a massive asteroid belt with no visible sign of escape.
+
+Your ship can detect several worm holes that can help move you through the belt.  
+
+your ship suffered massive damage and is leaking fuel at an alarming rate. Up ahead you witness a massive explosion of a cargo ship. Judging by the distance of the  explosion you assume it to be from your squadron.
+
+Not long after you notice fuel canasters coming your way. You can use them to make it out alive.
+
+Survive long enough and return, your team needs you.
+
+Good luck, Captain."
+text = "You are Captain girk.
+
+You have been separated from your fleet while on a defense mission to glargnak-6.
+
+you find yourself trapped inside a massive asteroid belt with no visible sign of escape.
+
+Your ship can detect several worm holes that can help move you through the belt.  
+
+your ship suffered massive damage and is leaking fuel at an alarming rate. Up ahead you witness a massive explosion of a cargo ship. Judging by the distance of the  explosion you assume it to be from your squadron.
+
+Not long after you notice fuel canasters coming your way. You can use them to make it out alive.
+
+Survive long enough and return, your team needs you.
+
+Good luck, Captain."
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Tween" type="Tween" parent="."]
+
+[connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]

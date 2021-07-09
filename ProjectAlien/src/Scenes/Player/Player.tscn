@@ -1,0 +1,74 @@
+[gd_scene load_steps=16 format=2]
+
+[ext_resource path="res://Art/AlienAnimation-Sheet.png" type="Texture" id=1]
+[ext_resource path="res://src/Scenes/Player/Player.gd" type="Script" id=2]
+[ext_resource path="res://src/Animation/healAnim.tres" type="Animation" id=3]
+[ext_resource path="res://src/Animation/hurtAnim.tres" type="Animation" id=4]
+[ext_resource path="res://src/Scenes/Player/AudioStreamPlayer2D.gd" type="Script" id=5]
+[ext_resource path="res://src/SoundFX/Powerup2.wav" type="AudioStream" id=6]
+[ext_resource path="res://src/Animation/spinning.tres" type="Animation" id=7]
+
+[sub_resource type="AtlasTexture" id=9]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=10]
+atlas = ExtResource( 1 )
+region = Rect2( 32, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=11]
+atlas = ExtResource( 1 )
+region = Rect2( 64, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=12]
+atlas = ExtResource( 1 )
+region = Rect2( 96, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=13]
+atlas = ExtResource( 1 )
+region = Rect2( 128, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=14]
+atlas = ExtResource( 1 )
+region = Rect2( 160, 0, 32, 32 )
+
+[sub_resource type="SpriteFrames" id=7]
+animations = [ {
+"frames": [ SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ), SubResource( 14 ) ],
+"loop": true,
+"name": "Idle",
+"speed": 5.0
+} ]
+
+[sub_resource type="CapsuleShape2D" id=8]
+radius = 6.20618
+height = 15.8174
+
+[node name="Player" type="KinematicBody2D" groups=[
+"Player",
+]]
+scale = Vector2( 1.5, 1.5 )
+script = ExtResource( 2 )
+
+[node name="Sprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 7 )
+animation = "Idle"
+frame = 5
+playing = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( -0.0613405, 4.74023 )
+rotation = 1.5708
+shape = SubResource( 8 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/healAnim = ExtResource( 3 )
+anims/hurtAnim = ExtResource( 4 )
+anims/spinning = ExtResource( 7 )
+
+[node name="Sounds" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 6 )
+volume_db = -10.0
+script = ExtResource( 5 )
+
+[node name="Tween" type="Tween" parent="."]
